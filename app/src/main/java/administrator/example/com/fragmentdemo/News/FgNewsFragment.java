@@ -1,4 +1,4 @@
-package administrator.example.com.fragmentdemo;
+package administrator.example.com.fragmentdemo.News;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,9 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import administrator.example.com.fragmentdemo.MyFragmentAdapter;
+import administrator.example.com.fragmentdemo.R;
 
 
 public class FgNewsFragment extends Fragment  {
@@ -25,7 +28,7 @@ public class FgNewsFragment extends Fragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fg_news, null);
+        return inflater.inflate(R.layout.fg_news, container,false);
 }
 
     @Override
@@ -36,6 +39,7 @@ public class FgNewsFragment extends Fragment  {
         setViewPager();
         vp_news.setOffscreenPageLimit(2);
         tl_news.setupWithViewPager(vp_news);
+
 
 
     }
@@ -50,6 +54,7 @@ public class FgNewsFragment extends Fragment  {
         MyFragmentAdapter adapter= new MyFragmentAdapter(getChildFragmentManager(),
                 fragments,fragmentTitles);
         vp_news.setAdapter(adapter);
+
     }
 
 }

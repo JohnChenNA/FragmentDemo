@@ -14,6 +14,10 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import administrator.example.com.fragmentdemo.Movie.FgMovieFragment;
+import administrator.example.com.fragmentdemo.News.FgNewsFragment;
+import administrator.example.com.fragmentdemo.Video.FgVideoFragment;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         ViewPager.OnPageChangeListener{
