@@ -7,7 +7,9 @@ import administrator.example.com.fragmentdemo.Bean.NewsBean;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
 
 /**
  * Created by apple on 18/5/22.
@@ -22,15 +24,16 @@ public class RetrofitHelper {
                 .baseUrl(host)
                 .client(getOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
         retrofitService = retrofit.create(RetrofitService.class);
     }
 
-    public Call<NewsBean> getNews(String type,String id,int startPage){
+    public Observable<NewsBean> getNews(String type,String id,int startPage){
         return retrofitService.getNews(type,id,startPage);
     }
 
-    public Call<MovieBean> getMovie(String total){
+    public Observable<MovieBean> getMovie(String total){
         return retrofitService.getMovie(total);
     }
 

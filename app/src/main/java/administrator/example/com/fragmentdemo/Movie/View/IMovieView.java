@@ -11,5 +11,5 @@ public interface IMovieView {
     void showMovie(MovieBean movieBean);
     void hideDialog();
     void showDialog();
-    void showErrorMsg(String error);
+    void showErrorMsg(Throwable throwable);
 }

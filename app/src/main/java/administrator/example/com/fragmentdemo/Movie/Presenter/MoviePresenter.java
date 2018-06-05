@@ -33,9 +33,9 @@ public class MoviePresenter implements IMoviePresenter, IOnLoadListener {
     }
 
     @Override
-    public void fail(String error) {
+    public void fail(Throwable throwable) {
         iMovieView.hideDialog();
-        iMovieView.showErrorMsg(error);
+        iMovieView.showErrorMsg(throwable);
     }
 
     @Override

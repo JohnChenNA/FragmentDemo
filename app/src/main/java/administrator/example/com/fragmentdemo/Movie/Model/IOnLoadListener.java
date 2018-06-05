@@ -9,5 +9,5 @@ import administrator.example.com.fragmentdemo.Bean.NewsBean;
 
 public interface IOnLoadListener {
     void success(MovieBean movieBean);
-    void fail(String error);
+    void fail(Throwable throwable);
 }
