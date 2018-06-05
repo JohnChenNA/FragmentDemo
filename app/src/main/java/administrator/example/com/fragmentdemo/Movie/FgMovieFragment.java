@@ -15,6 +15,7 @@ import android.widget.Toast;
 import administrator.example.com.fragmentdemo.Bean.MovieBean;
 
 import administrator.example.com.fragmentdemo.ItemMovieOnAdapter;
+import administrator.example.com.fragmentdemo.ItemMovieTopAdapter;
 import administrator.example.com.fragmentdemo.Movie.Presenter.MoviePresenter;
 import administrator.example.com.fragmentdemo.Movie.View.IMovieView;
 import administrator.example.com.fragmentdemo.R;
@@ -24,8 +25,10 @@ public class FgMovieFragment extends Fragment implements IMovieView {
 
     private MoviePresenter moviesPresenter;
     private RecyclerView rv_movie_on;
+    private RecyclerView rv_movie_top;
     private SwipeRefreshLayout srl_movie;
     private ItemMovieOnAdapter movieOnAdapter;
+    private ItemMovieTopAdapter movieTopAdapter;
 
 
     @Override
@@ -38,25 +41,35 @@ public class FgMovieFragment extends Fragment implements IMovieView {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        rv_movie_top = view.findViewById(R.id.rv_movie_top);
         moviesPresenter = new MoviePresenter(this);
         srl_movie = view.findViewById(R.id.srl_movie);
         rv_movie_on = view.findViewById(R.id.rv_movie_hot);
         movieOnAdapter = new ItemMovieOnAdapter(getActivity());
+        movieTopAdapter = new ItemMovieTopAdapter(getActivity());
         srl_movie.setColorSchemeColors(Color.parseColor("#ffce3d3a"));
         moviesPresenter.loadMovie("in_theaters");
+        moviesPresenter.loadMovie("top250");
         srl_movie.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 moviesPresenter.loadMovie("in_theaters");
+                moviesPresenter.loadMovie("top250");
             }
         });
     }
 
     @Override
     public void showMovie(MovieBean movieBean) {
-        movieOnAdapter.setData(movieBean.getSubjects());
-        rv_movie_on.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv_movie_on.setAdapter(movieOnAdapter);
+        if(movieBean.getTotal()==29) {
+            movieOnAdapter.setData(movieBean.getSubjects());
+            rv_movie_on.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rv_movie_on.setAdapter(movieOnAdapter);
+        }else{
+            movieTopAdapter.setData(movieBean.getSubjects());
+            rv_movie_top.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+            rv_movie_top.setAdapter(movieTopAdapter);
+        }
     }
 
     @Override

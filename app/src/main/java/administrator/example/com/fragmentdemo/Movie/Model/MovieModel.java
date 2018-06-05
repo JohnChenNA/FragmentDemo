@@ -53,7 +53,7 @@ public class MovieModel implements IMovieModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        iOnLoadListener.fail(e.getMessage());
+                        iOnLoadListener.fail(e);
                     }
 
                     @Override
