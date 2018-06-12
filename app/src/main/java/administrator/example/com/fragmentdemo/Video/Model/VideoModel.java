@@ -1,9 +1,13 @@
 package administrator.example.com.fragmentdemo.Video.Model;
 
+import android.nfc.Tag;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
+import administrator.example.com.fragmentdemo.Bean.CityBean;
 import administrator.example.com.fragmentdemo.Bean.TodayBean;
 
 
@@ -13,6 +17,7 @@ import administrator.example.com.fragmentdemo.Http.Api;
 import administrator.example.com.fragmentdemo.Http.RetrofitHelper;
 import administrator.example.com.fragmentdemo.Video.Presenter.VideoPresenter;
 import rx.Observable;
+import rx.Scheduler;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
@@ -23,10 +28,13 @@ import rx.schedulers.Schedulers;
  */
 
 public class VideoModel implements IVideoModel {
+    private  Integer[] city={101280101,101280102,101280103,101280104,101280105, 101280201,101280202,101280203,101280204,101280205,101280206, 101280207,101280208,101280501};
+
     @Override
-    public void loadVideo(String category, final IVideoLoadListener iVideoLoadListener){
+    public void loadVideo(String category, final IVideoLoadListener iVideoLoadListener) {
         final List<VideoUrlBean> videoList = new ArrayList<>();
-        final List<TodayBean> contentBeans = new ArrayList<>();
+        final List<TodayContentBean> contentBeans = new ArrayList<>();
+
         final RetrofitHelper retrofitHelper = new RetrofitHelper(Api.TODAY_HOST);
 
         retrofitHelper.getToday(category)
@@ -68,5 +76,16 @@ public class VideoModel implements IVideoModel {
 
                     }
                 });
+
+
+
+    }
+
+    @Override
+    public void loadCity() {
+        final List<CityBean> cityBeans = new ArrayList<>();
+
+
+
     }
 }

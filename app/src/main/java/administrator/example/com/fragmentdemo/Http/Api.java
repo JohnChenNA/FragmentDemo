@@ -13,4 +13,6 @@ public class Api {
     public static final String API_URL = "https://api.douban.com/v2/";
 
     public static final String TODAY_HOST = "http://is.snssdk.com/api/";
+
+    public static final String CITY_HOST = "http://wthrcdn.etouch.cn/";
 }

@@ -9,18 +9,28 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import administrator.example.com.fragmentdemo.Bean.CityBean;
+import administrator.example.com.fragmentdemo.Http.Api;
+import administrator.example.com.fragmentdemo.Http.RetrofitHelper;
 import administrator.example.com.fragmentdemo.Movie.FgMovieFragment;
 import administrator.example.com.fragmentdemo.News.FgNewsFragment;
 import administrator.example.com.fragmentdemo.Video.FgVideoFragment;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         ViewPager.OnPageChangeListener{
+    private  Integer[] city={101280101,101280102,101280103,101280104,101280105, 101280201,101280202,101280203,101280204,101280205,101280206, 101280207,101280208,101280501};
 
     private View view_status;
     private ImageView iv_title_movie;
@@ -38,6 +48,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         initView();
         initContentFragment();
+        final RetrofitHelper retrofitHelper = new RetrofitHelper(Api.CITY_HOST);
+
+
+
+        Observable.from(city)
+                .flatMap(new Func1<Integer, Observable<CityBean>>() {
+                    @Override
+                    public Observable<CityBean> call(Integer integer) {
+                        return retrofitHelper.getCityKey(integer);
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        new Subscriber<CityBean>() {
+
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.i("onNext",e.getMessage());
+                            }
+
+                            @Override
+                            public void onNext(CityBean cityBean) {
+                                Log.i("onNext",cityBean.getData().getCity()+":"+cityBean.getData().getGanmao());
+                            }
+                        });
     }
     private void initView(){
         view_status = (View)findViewById(R.id.view_status);

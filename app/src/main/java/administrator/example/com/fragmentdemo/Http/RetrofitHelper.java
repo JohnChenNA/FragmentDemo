@@ -2,6 +2,7 @@ package administrator.example.com.fragmentdemo.Http;
 
 import java.util.concurrent.TimeUnit;
 
+import administrator.example.com.fragmentdemo.Bean.CityBean;
 import administrator.example.com.fragmentdemo.Bean.MovieBean;
 import administrator.example.com.fragmentdemo.Bean.NewsBean;
 import administrator.example.com.fragmentdemo.Bean.TodayBean;
@@ -45,6 +46,10 @@ public class RetrofitHelper {
 
     public Observable<VideoUrlBean> getVideoUrl(String api){
         return retrofitService.getVideoUrl(api);
+    }
+
+    public Observable<CityBean> getCityKey(int citykey){
+        return retrofitService.getCityKey(citykey);
     }
 
     public OkHttpClient getOkHttpClient() {

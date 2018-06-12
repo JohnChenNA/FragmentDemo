@@ -1,5 +1,6 @@
 package administrator.example.com.fragmentdemo.Http;
 
+import administrator.example.com.fragmentdemo.Bean.CityBean;
 import administrator.example.com.fragmentdemo.Bean.MovieBean;
 import administrator.example.com.fragmentdemo.Bean.NewsBean;
 import administrator.example.com.fragmentdemo.Bean.TodayBean;
@@ -31,4 +32,7 @@ public interface RetrofitService {
 
     @GET
     Observable<VideoUrlBean> getVideoUrl(@Url String url);
+
+    @GET("weather_mini")
+    Observable<CityBean> getCityKey(@Query("citykey") int citykey);
 }
