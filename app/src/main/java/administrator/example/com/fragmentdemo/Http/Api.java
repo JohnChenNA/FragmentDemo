@@ -11,4 +11,6 @@ public class Api {
     public static final String JOKE_ID = "T1350383429665";
 
     public static final String API_URL = "https://api.douban.com/v2/";
+
+    public static final String TODAY_HOST = "http://is.snssdk.com/api/";
 }

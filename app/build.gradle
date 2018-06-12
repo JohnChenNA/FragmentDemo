@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "administrator.example.com.fragmentdemo"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -17,6 +17,8 @@ android {
         }
     }
     buildToolsVersion '26.0.2'
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -33,4 +35,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'cn.jzvd:jiaozivideoplayer:6.2.10'
 }

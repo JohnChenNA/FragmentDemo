@@ -61,14 +61,15 @@ public class FgMovieFragment extends Fragment implements IMovieView {
 
     @Override
     public void showMovie(MovieBean movieBean) {
-        if(movieBean.getTotal()==29) {
-            movieOnAdapter.setData(movieBean.getSubjects());
-            rv_movie_on.setLayoutManager(new LinearLayoutManager(getActivity()));
-            rv_movie_on.setAdapter(movieOnAdapter);
-        }else{
+        if(movieBean.getTotal()==250) {
             movieTopAdapter.setData(movieBean.getSubjects());
             rv_movie_top.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
             rv_movie_top.setAdapter(movieTopAdapter);
+
+        }else{
+            movieOnAdapter.setData(movieBean.getSubjects());
+            rv_movie_on.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rv_movie_on.setAdapter(movieOnAdapter);
         }
     }
 

@@ -4,6 +4,8 @@ import java.util.concurrent.TimeUnit;
 
 import administrator.example.com.fragmentdemo.Bean.MovieBean;
 import administrator.example.com.fragmentdemo.Bean.NewsBean;
+import administrator.example.com.fragmentdemo.Bean.TodayBean;
+import administrator.example.com.fragmentdemo.Bean.VideoUrlBean;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -35,6 +37,14 @@ public class RetrofitHelper {
 
     public Observable<MovieBean> getMovie(String total){
         return retrofitService.getMovie(total);
+    }
+
+    public Observable<TodayBean> getToday(String category){
+        return retrofitService.getToday(category);
+    }
+
+    public Observable<VideoUrlBean> getVideoUrl(String api){
+        return retrofitService.getVideoUrl(api);
     }
 
     public OkHttpClient getOkHttpClient() {
