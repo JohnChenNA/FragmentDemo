@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import administrator.example.com.fragmentdemo.Bean.CityBean;
 import administrator.example.com.fragmentdemo.Http.Api;
 import administrator.example.com.fragmentdemo.Http.RetrofitHelper;
+import administrator.example.com.fragmentdemo.Live.FgLiveFragment;
 import administrator.example.com.fragmentdemo.Movie.FgMovieFragment;
 import administrator.example.com.fragmentdemo.News.FgNewsFragment;
 import administrator.example.com.fragmentdemo.Video.FgVideoFragment;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView iv_title_movie;
     private  ImageView iv_title_news;
     private ImageView iv_title_video;
+    private ImageView iv_title_live;
     private ViewPager vp_content;
     private Toolbar toolbars;
     @Override
@@ -85,12 +87,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_title_movie = (ImageView) findViewById(R.id.iv_title_movie);
         iv_title_news = (ImageView) findViewById(R.id.iv_title_news);
         iv_title_video = (ImageView) findViewById(R.id.iv_title_video);
+        iv_title_live = (ImageView) findViewById(R.id.iv_title_live);
         vp_content = (ViewPager)findViewById(R.id.vp_content);
         toolbars = (Toolbar)findViewById(R.id.toolbars);
 
         iv_title_news.setOnClickListener(this);
         iv_title_movie.setOnClickListener(this);
         iv_title_video.setOnClickListener(this);
+        iv_title_live.setOnClickListener(this);
     }
 
     private void initContentFragment(){
@@ -98,10 +102,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFragmentList.add(new FgNewsFragment());
         mFragmentList.add(new FgMovieFragment());
         mFragmentList.add(new FgVideoFragment());
+        mFragmentList.add(new FgLiveFragment());
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager(),
                 mFragmentList);
         vp_content.setAdapter(adapter);
-        vp_content.setOffscreenPageLimit(2);
+        vp_content.setOffscreenPageLimit(3);
         vp_content.addOnPageChangeListener(this);
 
         setSupportActionBar(toolbars);
@@ -116,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_title_movie.setSelected(false);
         iv_title_news.setSelected(false);
         iv_title_video.setSelected(false);
+        iv_title_live.setSelected(false);
         switch (i){
             case 0 :
                 iv_title_news.setSelected(true);
@@ -126,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 2:
                 iv_title_video.setSelected(true);
                 break;
+            case 3:
+                iv_title_live.setSelected(true);
         }
     }
     @Override
@@ -159,6 +167,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.iv_title_video:
                 if (vp_content.getCurrentItem()!=2){
                     setCurrentItem(2);
+                }
+                break;
+            case R.id.iv_title_live:
+                if (vp_content.getCurrentItem()!=3){
+                    setCurrentItem(3);
                 }
                 break;
 

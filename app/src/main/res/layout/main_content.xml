@@ -63,6 +63,13 @@
                     android:layout_height="match_parent"
                     android:padding="15dp"
                     android:src="@drawable/titlebar_video" />
+
+                <ImageView
+                    android:id="@+id/iv_title_live"
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:padding="15dp"
+                    android:src="@drawable/titlebar_live" />
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
