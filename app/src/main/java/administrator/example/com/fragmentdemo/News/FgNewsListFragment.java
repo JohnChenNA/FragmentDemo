@@ -30,6 +30,8 @@ public class FgNewsListFragment extends Fragment implements INewsView {
     private TextView tv_news_list;
     private RecyclerView rv_news;
     private List<NewsBean.Bean> newsBeanList;
+    private LinearLayoutManager layoutManager;
+    private int startPage = 0;
 
     public static FgNewsListFragment newInstance(int type){
         Bundle args = new Bundle();
@@ -61,6 +63,16 @@ public class FgNewsListFragment extends Fragment implements INewsView {
             @Override
             public void onRefresh() {
                 presenter.loadNews(type , 0);
+
+            }
+        });
+        rv_news.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE &&
+                        (layoutManager.findLastVisibleItemPosition()+1)==layoutManager.getItemCount()){
+                    loadMore();
+                }
 
             }
         });
@@ -109,12 +121,14 @@ public class FgNewsListFragment extends Fragment implements INewsView {
                     break;
             }
             adapter.setData(newsBeanList);
-            rv_news.setLayoutManager(new LinearLayoutManager(getActivity(),
-                    LinearLayoutManager.VERTICAL,false));
+            layoutManager=new LinearLayoutManager(getActivity(),
+                    LinearLayoutManager.VERTICAL,false);
+            rv_news.setLayoutManager(layoutManager);
             rv_news.setAdapter(adapter);
             tv_news_list.setVisibility(View.GONE);
 
     }
+
     @Override
     public void hideDialog(){
             srl_news.setRefreshing(false);
@@ -127,8 +141,28 @@ public class FgNewsListFragment extends Fragment implements INewsView {
 
     @Override
     public void showErrorMsg(String error) {
+        adapter.notifyItemRemoved(adapter.getItemCount());
         tv_news_list.setText("加载失败"+error);
     }
 
+    @Override
+    public void showMoreNews(NewsBean newsBean) {
+        switch (type){
+            case FgNewsFragment.NEWS_TYPE_TOP:
+                adapter.addData(newsBean.getTop());
+                break;
+            case FgNewsFragment.NEW_TYPE_NBA:
+                adapter.addData(newsBean.getNba());
+                break;
+            case FgNewsFragment.NEWS_TYPE_JOKES:
+                adapter.addData(newsBean.getJoke());
+                break;
+        }
+        adapter.notifyDataSetChanged();
+    }
 
+    private void loadMore(){
+        startPage+=20;
+        presenter.loadNews(type,startPage);
+    }
 }

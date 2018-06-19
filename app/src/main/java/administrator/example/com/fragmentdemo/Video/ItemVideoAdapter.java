@@ -14,6 +14,7 @@ import java.util.List;
 
 
 import administrator.example.com.fragmentdemo.Bean.TodayContentBean;
+import administrator.example.com.fragmentdemo.Bean.VideoUrlBean;
 import administrator.example.com.fragmentdemo.R;
 import cn.jzvd.JZVideoPlayer;
 import cn.jzvd.JZVideoPlayerStandard;
@@ -35,25 +36,49 @@ public class ItemVideoAdapter extends RecyclerView.Adapter<ItemVideoAdapter.View
         this.objects = objects;
         this.videoList = videoList;
     }
+    public void addData(List<TodayContentBean> newObjects){
+        objects.addAll(newObjects);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position + 1 == getItemCount()) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_video,parent, false);
+        if (viewType==0){
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_video,parent, false);
 
-        return new ItemVideoAdapter.ViewHolder(view);
+            return new ItemVideoAdapter.ViewHolder(view);
+
+        }else{
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.footer,parent,false);
+            return new FooterHolder(view);
+
+        }
+
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        TodayContentBean bean = objects.get(position);
-        holder.videoPlayer.setUp(videoList.get(position),
-                JZVideoPlayerStandard.SCREEN_WINDOW_LIST,
-                bean.getTitle());
 
-        Glide.with(context)
-                .load(bean.getVideo_detail_info().getDetail_video_large_image().getUrl())
-                .into(holder.videoPlayer.thumbImageView);
+            TodayContentBean bean = objects.get(position);
+
+            holder.videoPlayer.setUp(videoList.get(position),
+                    JZVideoPlayerStandard.SCREEN_WINDOW_LIST,
+                    bean.getTitle());
+
+            Glide.with(context)
+                    .load(bean.getVideo_detail_info().getDetail_video_large_image().getUrl())
+                    .into(holder.videoPlayer.thumbImageView);
+
 
     }
 
@@ -74,4 +99,10 @@ public class ItemVideoAdapter extends RecyclerView.Adapter<ItemVideoAdapter.View
             videoPlayer = (JZVideoPlayerStandard) view.findViewById(R.id.video_player);
         }
     }
+    protected class FooterHolder extends ViewHolder{
+        public FooterHolder(View itemView){
+            super(itemView);
+        }
+    }
+
 }

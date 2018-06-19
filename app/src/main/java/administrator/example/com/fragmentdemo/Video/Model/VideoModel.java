@@ -73,6 +73,7 @@ public class VideoModel implements IVideoModel {
                     @Override
                     public void onNext(VideoUrlBean videoUrlBean) {
                         videoList.add(videoUrlBean);
+                        iVideoLoadListener.loadMoreSuccess(videoUrlBean);
 
                     }
                 });
@@ -88,4 +89,6 @@ public class VideoModel implements IVideoModel {
 
 
     }
+
+
 }

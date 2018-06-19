@@ -32,6 +32,8 @@ public class VideoPresenter implements IVideoPresenter, IVideoLoadListener {
 
     @Override
     public void loadVideo() {
+
+
         iVideoView.showDialog();
         iVideoModel.loadVideo("video", this);
     }
@@ -79,5 +81,10 @@ public class VideoPresenter implements IVideoPresenter, IVideoLoadListener {
         Gson gson = new Gson();
         TodayContentBean bean = gson.fromJson(content, TodayContentBean.class);
         return bean;
+    }
+    @Override
+    public void loadMoreSuccess(VideoUrlBean videoUrlBean){
+        iVideoView.hideDialog();
+        iVideoView.showMoreVideo(videoUrlBean);
     }
 }

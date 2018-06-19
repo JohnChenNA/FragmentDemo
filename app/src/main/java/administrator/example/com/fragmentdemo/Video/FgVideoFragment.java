@@ -20,6 +20,7 @@ import android.widget.VideoView;
 import java.util.List;
 
 import administrator.example.com.fragmentdemo.Bean.TodayContentBean;
+import administrator.example.com.fragmentdemo.Bean.VideoUrlBean;
 import administrator.example.com.fragmentdemo.R;
 import administrator.example.com.fragmentdemo.Video.Presenter.IVideoPresenter;
 import administrator.example.com.fragmentdemo.Video.Presenter.VideoPresenter;
@@ -31,6 +32,8 @@ public class FgVideoFragment extends Fragment implements IVideoView {
     private RecyclerView rv_video;
     private ItemVideoAdapter itemVideoAdapter;
     private SwipeRefreshLayout srl_video;
+    private LinearLayoutManager layoutManager;
+    private VideoPresenter videoPresenter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +56,15 @@ public class FgVideoFragment extends Fragment implements IVideoView {
             }
         });
         itemVideoAdapter = new ItemVideoAdapter(getActivity());
+        rv_video.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (newState==RecyclerView.SCROLL_STATE_IDLE &&
+                        (layoutManager.findLastVisibleItemPosition()+1)==layoutManager.getItemCount()){
+                    loadMore();
+                }
+            }
+        });
     }
 
     @Override
@@ -61,6 +73,9 @@ public class FgVideoFragment extends Fragment implements IVideoView {
         rv_video.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.VERTICAL, false));
         rv_video.setAdapter(itemVideoAdapter);
+        layoutManager = new LinearLayoutManager(getActivity(),
+                LinearLayoutManager.VERTICAL,false);
+        rv_video.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -76,5 +91,18 @@ public class FgVideoFragment extends Fragment implements IVideoView {
     @Override
     public void showErrorMsg(Throwable throwable) {
         Toast.makeText(getContext(), "加载出错:"+throwable.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showMoreVideo(VideoUrlBean videoUrlBean) {
+       itemVideoAdapter.addData(VideoUrlBean.);
+
+    }
+
+
+    private void loadMore(){
+        iVideoPresenter.loadVideo();
+
+
     }
 }

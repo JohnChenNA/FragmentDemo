@@ -3,6 +3,7 @@ package administrator.example.com.fragmentdemo.Video.View;
 import java.util.List;
 
 import administrator.example.com.fragmentdemo.Bean.TodayContentBean;
+import administrator.example.com.fragmentdemo.Bean.VideoUrlBean;
 
 /**
  * Created by admin on 2018/6/11.
@@ -13,5 +14,6 @@ public interface IVideoView {
     void hideDialog();
     void showDialog();
     void showErrorMsg(Throwable throwable);
+    void showMoreVideo(VideoUrlBean videoUrlBean);
 
 }

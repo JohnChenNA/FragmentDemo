@@ -7,6 +7,7 @@ import administrator.example.com.fragmentdemo.News.Model.INewsModel;
 import administrator.example.com.fragmentdemo.News.Model.IOnLoadListener;
 import administrator.example.com.fragmentdemo.News.Model.NewsModel;
 import administrator.example.com.fragmentdemo.News.View.INewsView;
+import administrator.example.com.fragmentdemo.Video.Presenter.VideoPresenter;
 
 /**
  * Created by apple on 18/5/22.
@@ -16,6 +17,7 @@ public class NewsPresenter implements INewsPresenter,IOnLoadListener {
     private INewsModel iNewsModel;
     private INewsView iNewsView;
 
+
     public NewsPresenter(INewsView iNewsView){
         this.iNewsView = iNewsView;
         this.iNewsModel = new NewsModel();
@@ -23,7 +25,9 @@ public class NewsPresenter implements INewsPresenter,IOnLoadListener {
 
     @Override
     public void loadNews(int type, int starPage) {
-        iNewsView.showDialog();
+        if (starPage==0) {
+            iNewsView.showDialog();
+        }
         switch (type){
             case FgNewsFragment.NEWS_TYPE_TOP:
                 iNewsModel.loadNews("headline",starPage, Api.HEADLINE_ID,
@@ -56,5 +60,11 @@ public class NewsPresenter implements INewsPresenter,IOnLoadListener {
     public void fail(String error) {
         iNewsView.hideDialog();
         iNewsView.showErrorMsg(error);
+    }
+
+    @Override
+    public void loadMoreSuccess(NewsBean newsBean) {
+        iNewsView.hideDialog();
+        iNewsView.showMoreNews(newsBean);
     }
 }

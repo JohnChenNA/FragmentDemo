@@ -12,4 +12,5 @@ import administrator.example.com.fragmentdemo.Bean.VideoUrlBean;
 public interface IVideoLoadListener {
     void videoUrlSuccess(List<VideoUrlBean> videoUrlBeans, List<TodayContentBean> contentBeans);
     void fail(Throwable throwable);
+    void loadMoreSuccess(VideoUrlBean videoUrlBean);
 }
